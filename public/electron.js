@@ -75,7 +75,6 @@ ipcMain.on('open-uni-summary', (e, state) => {
       height: 630,
       minHeight: 630,
       backgroundColor: '#f7f8fa',
-      // transparent: true,
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
