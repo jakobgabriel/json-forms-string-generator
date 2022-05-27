@@ -75,7 +75,7 @@ ipcMain.on('open-uni-summary', (e, state) => {
       height: 630,
       minHeight: 630,
       backgroundColor: '#f7f8fa',
-     // transparent: true,
+      // transparent: true,
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: false,
@@ -244,7 +244,7 @@ function createWindow() {
   })
 
   // Open DevTools - Remove for PRODUCTION!
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
   // Listen for window being closed
 
   let listener = (e) => {

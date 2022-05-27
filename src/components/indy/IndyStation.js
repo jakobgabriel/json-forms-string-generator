@@ -74,7 +74,7 @@ const IndyStation = ({
 
   const generateTopCallback = useCallback(
     (e) => {
-      if (e.key === '`' && activeIndy.isSourceAvailable) generateTop()
+      if (e.key === '+' && activeIndy.isSourceAvailable) generateTop()
     },
     [isDoubleGroups, activeIndy, activeIndyVariation]
   )

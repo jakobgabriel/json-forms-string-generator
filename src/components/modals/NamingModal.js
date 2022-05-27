@@ -62,7 +62,24 @@ const NamingModal = ({
             ref={btnRef}
             className={`btn ${isCheckingName ? 'disable' : ''}`}
           >
-            Save
+            {isCheckingName ? (
+              <div class="lds-spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            ) : (
+              'Save'
+            )}
           </button>
         </form>
       </div>
