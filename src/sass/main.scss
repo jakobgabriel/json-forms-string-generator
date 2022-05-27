@@ -1,0 +1,129 @@
+@import "main/variables";
+@import "fram/controls";
+@import "fram/header";
+@import "main/fonts";
+@import "main/utils";
+@import "main/btn";
+@import "main/main-panel";
+@import "main/master";
+@import "main/master-panel";
+@import "main/modal";
+@import "main/context-menu";
+@import "main/workstation";
+@import "main/masterview";
+@import "main/input";
+@import "main/DirectDropDown";
+@import "main/drop-down";
+@import "main/notes";
+@import "main/switch.scss";
+@import "main/uni-summary";
+
+@import "indy/indy-station";
+@import "indy/source-group";
+@import "indy/takes-group";
+
+@import "dashboard/dashboard";
+
+@import "main/squaire-loader";
+
+@import "main/mediaquries";
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+// ::selection {
+//   background-color: #524949;
+// }
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; // 10px/16px = 62.5% -> 1rem = 10px
+  position: relative;
+}
+
+body {
+  font-family: "Poppins";
+  user-select: none;
+  // padding: 1rem;
+  // padding-top: 1.3rem;
+  background: var(--main-color-light);
+  position: relative;
+  height: 100vh;
+
+  // color: hsl(0, 0%, 95%);
+}
+
+#root {
+  width: 100%;
+  // display: flex;
+  overflow: hidden;
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__main {
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+  }
+}
+
+.hidden-input {
+  font-family: "Poppins";
+
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  outline: none;
+  border: none;
+  text-align: center;
+  direction: ltr;
+  color: rgb(209, 209, 209);
+  font-weight: bold;
+  font-size: 1.1rem;
+
+  &--uni {
+    font-size: 1.8rem;
+    font-weight: initial;
+  }
+}
+// ::-webkit-scrollbar {
+//   width: 8px;
+// }
+
+// /* Track */
+// ::-webkit-scrollbar-track {
+//   background: transparent;
+// }
+
+// /* Handle */
+// ::-webkit-scrollbar-thumb {
+//   border-radius: 2px;
+//   height: 15px;
+
+//   background: url("../img/menu.png") var(--main-color-light);
+//   background-size: 6px 12px;
+//   background-repeat: no-repeat;
+//   background-position: center;
+// }
+
+// /* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//   background: url("../img/menu.png") rgba(var(--main-color-light-hover), 0.65);
+//   background-size: 6px 12px;
+//   background-repeat: no-repeat;
+//   background-position: center;
+// }
+
+// ::-webkit-scrollbar-button {
+//   height: 50px; //for vertical scrollbar
+// }

@@ -1,0 +1,252 @@
+.modal {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(#000000, 0.5);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+
+  // backdrop-filter: blur(1px);
+  // background-color: rgba(#000000, 0.3);
+  animation: open 0.3s forwards;
+
+  &__btn {
+    background: #56bbf3;
+    width: 7.5rem;
+    height: 2.25rem;
+    border-radius: 0.3rem;
+    font-weight: bold;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+
+    transition: background 0.3s;
+
+    &__group {
+      width: 100%;
+      height: 2.25rem;
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+    &:hover {
+      background: rgb(44, 171, 240);
+    }
+  }
+
+  &__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    height: max-content;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    // overflow: hidden;
+    opacity: 1;
+    // transform: translate(-50%, -50%) scale(0.25);
+    transition: all 0.5s 0.2s;
+  }
+  //Open states
+  &:target {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &:target &__content {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  &__icon {
+    cursor: pointer;
+    &--close {
+      width: 1rem;
+      height: 1rem;
+      fill: #e57373;
+      z-index: 1;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+
+    &--upDownCircle {
+      width: 1.6rem;
+      height: 1.6rem;
+      fill: #8b595e;
+      transition: fill 0.3s;
+
+      &:hover {
+        fill: #b8666d;
+      }
+
+      &:active {
+        fill: #ef989f;
+      }
+    }
+  }
+
+  &__window {
+    width: 59.85rem;
+    height: 31.6rem;
+    background: #f1f1f1;
+    color: rgb(83, 83, 83);
+    box-shadow: 0px 2px 15px #000000;
+    position: relative;
+    transition: height 0.5s;
+    padding: 1rem;
+    border-radius: 0.5rem;
+
+    &__title {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 1.6rem;
+
+      padding-left: 1.2rem;
+      text-align: left;
+
+      &--addGroup {
+        text-align: center;
+        margin-top: 0.5rem;
+        padding-left: 0;
+      }
+    }
+
+    &__message {
+      font-weight: 500;
+      font-size: 1.3rem;
+      padding-left: 1.2rem;
+      padding-right: 1.2rem;
+      text-align: left;
+    }
+
+    &--confirm {
+      width: 31rem;
+      height: 13rem;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    &--createGroup {
+      width: 28.9rem;
+      height: 15rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    &__subTitle {
+      width: 9.45rem;
+      height: 3.1rem;
+      margin-left: 2.2rem;
+      margin-top: 1rem;
+      font-weight: 500;
+      font-size: 1rem;
+
+      background: #5c3a3d;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    &--addMaster {
+      width: 35rem;
+      height: 18rem;
+    }
+
+    &--namming {
+      width: 30rem;
+      height: 15rem;
+    }
+
+    &__group {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+      padding-top: 2rem;
+      gap: 2rem;
+      // height: calc(100% - 3.6rem);
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    &__input {
+      &__group {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
+      }
+
+      height: 2.5rem;
+      border-radius: 2px;
+      outline: none;
+      border: none;
+      background: #cfcfcf;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+
+      width: 80%;
+
+      &--file {
+        display: none;
+      }
+    }
+
+    &__label {
+      font-size: 1.4rem;
+      font-weight: bold;
+      min-width: 5rem;
+
+      &--settings {
+        min-width: 9rem;
+      }
+    }
+  }
+}
+
+@keyframes open {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes close {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0rem);
+
+  .popup__content {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

@@ -1,0 +1,106 @@
+.input {
+  &__field {
+    background: #141414;
+    height: 2.5rem;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    color: #fff;
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 8px;
+    width: 100%;
+    transition: background 0.5s;
+
+    &::placeholder {
+      color: #787878;
+    }
+
+    &--shopifyName {
+      width: 10rem;
+    }
+
+    &--addGroup {
+      width: 21.8rem;
+      height: 2.7rem;
+      font-size: 1rem;
+
+      &::placeholder {
+        font-size: 1rem;
+      }
+    }
+
+    &--normal {
+      width: 12.25rem;
+    }
+
+    &--small {
+      width: 13rem;
+    }
+
+    &--extraSmall {
+      width: 8.1rem;
+    }
+
+    &--number {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    &--key {
+      width: 4rem;
+      text-align: center;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: 1px solid #424242;
+    }
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+
+    &--extend {
+      flex: 1;
+    }
+
+    &--horizontal {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+
+      .input__label {
+        font-size: 8px;
+      }
+    }
+
+    &--phone {
+      display: flex;
+      width: 100%;
+    }
+  }
+
+  &__label {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 8px;
+  }
+}
+
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+form.submitted input:invalid {
+  background: rgb(212, 76, 76);
+  &::placeholder {
+    color: #fff;
+  }
+}

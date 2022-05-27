@@ -1,0 +1,50 @@
+.DirectDropDown {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+
+  &__icon {
+    fill: #6563ff;
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+  }
+
+  .szh-menu-container {
+    // height: 100%;
+
+    width: 30rem !important;
+    .szh-menu {
+      width: 100%;
+
+      height: 11rem;
+      overflow-y: auto;
+
+      .szh-menu__item {
+        width: 100%;
+
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+// .szh-menu-container {
+//   // height: 100%;
+
+//   width: 30rem !important;
+//   .szh-menu {
+//     width: 100%;
+
+//     height: 11rem;
+//     overflow-y: auto;
+
+//     .szh-menu__item {
+//       width: 100%;
+
+//       overflow: hidden;
+//     }
+//   }
+// }

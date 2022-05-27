@@ -1,0 +1,111 @@
+{
+  "name": "ito",
+  "description": "Advanced combinations generator",
+  "author": "Yosh <imyosh4@gmail.com>",
+  "version": "1.0.4",
+  "main": "public/electron.js",
+  "productName": "ito",
+  "build": {
+    "appId": "com.ito.ito",
+    "productName": "ito",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg"
+      ],
+      "icon": "./build/icons/mac/icon.icns"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "./build/icons/win/icon.ico"
+  
+    },
+    "nsis": {
+      "oneClick": false
+    },
+
+    "linux": {
+      "target": [
+        "deb"
+      ],
+      "icon": "./build/icons/mac/icon.icns",
+      "category": "Utility"
+    },
+    "extraResources": [
+      {
+        "from": "public/functions",
+        "to": "functions"
+      },
+      {
+        "from": "public/processes",
+        "to": "processes"
+      }
+    ]
+  },
+  "homepage": "./",
+  "dependencies": {
+    "@electron/remote": "^2.0.1",
+    "@szhsin/react-menu": "^3.0.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.0",
+    "@testing-library/user-event": "^13.2.1",
+    "array-move": "^4.0.0",
+    "cross-env": "^7.0.3",
+    "electron-is-dev": "^2.0.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^8.0.1",
+    "jodit-react": "^1.2.18",
+    "lodash.debounce": "^4.0.8",
+    "mv": "^2.1.1",
+    "nodemon": "^2.0.15",
+    "processes": "file:public/processes",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-multi-select-component": "^4.2.3",
+    "react-redux": "^7.2.5",
+    "react-router-dom": "^5.3.0",
+    "react-sortable-hoc": "^2.0.0",
+    "redux": "^4.1.1",
+    "redux-state-sync": "^3.1.2",
+    "sass": "^1.49.7",
+    "web-vitals": "^2.1.0"
+  },
+  "scripts": {
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject",
+    "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && nodemon --watch electron.js --exec electron .\"",
+    "electron-build": "electron-builder",
+    "electron-build-win": "electron-builder --win --x64",
+    "electron-build-mac": "electron-builder --mac --x64 --publish always",
+    "electron-build-linux": "electron-builder --linux --x64",
+    "build-win": "npm run react-build && npm run electron-build-win",
+    "build-mac": "npm run react-build && npm run electron-build-mac",
+    "build-linux": "npm run react-build && npm run electron-build-linux",
+    "postinstall": "electron-builder install-app-deps",
+    "build": "npm run react-build && electron-builder --mac --windows --linux",
+    "release": "electron-builder --linux --publish always"
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0",
+    "electron": "^17.1.2",
+    "electron-builder": "^23.0.3",
+    "react-scripts": "^5.0.0",
+    "wait-on": "^6.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

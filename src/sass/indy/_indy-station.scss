@@ -1,0 +1,64 @@
+.indy-station {
+  height: calc(100% - 2.7rem);
+  border: 1px solid rgb(219, 219, 219);
+
+  position: relative;
+
+  &__title {
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  &__nav {
+    display: flex;
+    gap: 0.5rem;
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.5rem 0.5rem 0 0;
+      cursor: pointer;
+      height: 2.25rem;
+      width: 8rem;
+      font-weight: bold;
+      background: #d5d6e1;
+      color: #53585f;
+
+      &:hover {
+        background: #c8c9d4 !important;
+      }
+
+      &--active {
+        background: #698cab !important;
+        color: #fff;
+
+        &:hover {
+          background: #698cab !important;
+        }
+      }
+    }
+  }
+
+  &__btn {
+    &__group {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      width: max-content;
+
+      position: absolute;
+
+      z-index: 2;
+
+      &--1 {
+        top: 1rem;
+        left: 1rem;
+      }
+
+      &--2 {
+        top: 1rem;
+        right: 1rem;
+      }
+    }
+  }
+}
