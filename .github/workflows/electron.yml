@@ -1,0 +1,155 @@
+# name of your github action
+name: CI
+# this will help you specify where to run
+on:
+  push:
+    branches:
+      # this will run on the electron branch
+      - master
+# this is where the magic happens, each job happens in parallel btw
+jobs:
+  build_on_mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          ref: master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 16.14.2
+      - name: check npm version
+        run: npm -v
+      - name: install packages
+        run: npm install
+      - name: see directory
+        run: ls
+      - name: replace the react-scripts config file
+        run: mv -f ./webpack.config.js ./node_modules/react-scripts/config/webpack.config.js
+      - name: cat file to make sure
+        run: cat ./node_modules/react-scripts/config/webpack.config.js
+      - name: build react
+        run: npm run react-build
+      - name: ls ./build
+        run: ls ./build
+      - name: install cli-truncate
+        run: npm install cli-truncate --save-dev
+      - name: build electron for mac
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run electron-build-mac
+
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@latest
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.ref }}
+      #     release_name: Release ${{ github.ref }} for mac
+      #     body: |
+      #       ${{ steps.Changelog.outputs.changelog }}
+      #     draft: false
+      #     prerelease: false
+
+      - name: see directory
+        run: ls
+      - name: ls dist folder
+        run: ls ./dist
+
+  # build_on_linux:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@master
+  #       with:
+  #         ref: master
+  #     - uses: actions/setup-node@master
+  #       with:
+  #         node-version: 16.14.2
+  #     - name: check npm version
+  #       run: npm -v
+  #     - name: install packages
+  #       run: npm install
+  #     - name: see directory
+  #       run: ls
+  #     - name: replace the react-scripts config file
+  #       run: mv -f ./webpack.config.js ./node_modules/react-scripts/config/webpack.config.js
+  #     - name: cat file to make sure
+  #       run: cat ./node_modules/react-scripts/config/webpack.config.js
+  #     - name: build react
+  #       run: npm run react-build
+  #     - name: ls ./build
+  #       run: ls ./build
+  #     - name: build electron for linux
+  #       env:
+  #         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       run: npm run electron-build-linux
+
+  #     # - name: Create Release
+  #     #   id: create_release
+  #     #   uses: actions/create-release@latest
+  #     #   env:
+  #     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     #   with:
+  #     #     tag_name: ${{ github.ref }}
+  #     #     release_name: Release ${{ github.ref }} for mac
+  #     #     body: |
+  #     #       ${{ steps.Changelog.outputs.changelog }}
+  #     #     draft: false
+  #     #     prerelease: false
+
+  #     - name: see directory
+  #       run: ls
+  #     - name: ls dist folder
+  #       run: ls ./dist
+
+  # build_on_win:
+  #   runs-on: windows-latest
+  #   steps:
+  #     - uses: actions/checkout@master
+  #       with:
+  #         ref: master
+  #     - uses: actions/setup-node@master
+  #       with:
+  #         node-version: 16.14.2
+  #     - name: check npm version
+  #       run: npm -v
+  #     - name: install main packages
+  #       run: npm install
+  #     - name: see directory
+  #       run: ls
+
+  #     - name: install processes packages
+  #       run: npm install --prefix ./public/processes
+  #     - name: see processes directory
+  #       run: ls ./public/processes
+
+  #     - name: replace the react-scripts config file
+  #       run: mv -Force ./webpack.config.js ./node_modules/react-scripts/config/webpack.config.js
+  #     - name: cat file to make sure
+  #       run: cat ./node_modules/react-scripts/config/webpack.config.js
+  #     - name: build react
+  #       run: npm run react-build
+  #     - name: ls ./build
+  #       run: ls ./build
+  #     - name: build electron for windows
+  #       env:
+  #         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       run: npm run electron-build-win
+
+  #     # - name: Create Release
+  #     #   id: create_release
+  #     #   uses: actions/create-release@latest
+  #     #   env:
+  #     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     #   with:
+  #     #     tag_name: ${{ github.ref }}
+  #     #     release_name: Release ${{ github.ref }} for mac
+  #     #     body: |
+  #     #       ${{ steps.Changelog.outputs.changelog }}
+  #     #     draft: false
+  #     #     prerelease: false
+
+  #     - name: see directory
+  #       run: ls
+  #     - name: ls dist folder
+  #       run: ls ./dist
