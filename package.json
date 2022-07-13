@@ -57,7 +57,6 @@
     "jodit-react": "^1.2.18",
     "lodash.debounce": "^4.0.8",
     "mv": "^2.1.1",
-    "nodemon": "^2.0.15",
     "processes": "file:public/processes",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
@@ -91,6 +90,7 @@
     "concurrently": "^7.0.0",
     "electron": "^17.1.2",
     "electron-builder": "^23.0.3",
+    "nodemon": "^2.0.19",
     "react-scripts": "^5.0.0",
     "wait-on": "^6.0.1"
   },
