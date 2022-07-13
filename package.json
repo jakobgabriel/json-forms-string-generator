@@ -2,7 +2,7 @@
   "name": "ito",
   "description": "Advanced combinations generator",
   "author": "Yosh <imyosh4@gmail.com>",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "public/electron.js",
   "productName": "ito",
   "build": {
@@ -20,12 +20,10 @@
         "nsis"
       ],
       "icon": "./build/icons/win/icon.ico"
-  
     },
     "nsis": {
       "oneClick": false
     },
-
     "linux": {
       "target": [
         "deb"
