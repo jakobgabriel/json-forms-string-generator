@@ -25,7 +25,6 @@ const MainPanel = ({
   updateIsOpen,
 }) => {
   const [menu, setMenu] = useState({ isOpen: false })
-
   const [isNamingModalOpened, setIsNamingModalOpened] = useState(false)
   const [isAddUniSessionOpen, setIsAddUniSessionOpen] = useState(false)
   const [isAddMasterSessionOpen, setIsAddMasterSessionOpen] = useState(false)

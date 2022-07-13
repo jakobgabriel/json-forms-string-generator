@@ -9,8 +9,9 @@ import { getActives, generateCombo, isObjectEmpty } from '../../Funtions'
 import { updateRecentGen } from '../../actions'
 
 const IndyStation = ({
-  activeIndy,
   updateUnis,
+  activeUniVariation,
+  activeIndy,
   activeMasterSession,
   activeIndyVariation,
   homeFolderPath,
@@ -123,6 +124,7 @@ const IndyStation = ({
               holder="a"
               activeIndy={activeIndy}
               activeMasterSession={activeMasterSession}
+              activeUniVariation={activeUniVariation}
               updateUnis={updateUnis}
               activeIndyVariation={activeIndyVariation}
               homeFolderPath={homeFolderPath}
@@ -131,6 +133,7 @@ const IndyStation = ({
               holder="b"
               activeIndy={activeIndy}
               activeMasterSession={activeMasterSession}
+              activeUniVariation={activeUniVariation}
               updateUnis={updateUnis}
               activeIndyVariation={activeIndyVariation}
               homeFolderPath={homeFolderPath}
@@ -141,6 +144,7 @@ const IndyStation = ({
             holder="a"
             activeIndy={activeIndy}
             activeMasterSession={activeMasterSession}
+            activeUniVariation={activeUniVariation}
             updateUnis={updateUnis}
             activeIndyVariation={activeIndyVariation}
             homeFolderPath={homeFolderPath}
@@ -151,6 +155,7 @@ const IndyStation = ({
         <TakesGroupModule
           activeIndy={activeIndy}
           activeMasterSession={activeMasterSession}
+          activeUniVariation={activeUniVariation}
           updateUnis={updateUnis}
           activeIndyVariation={activeIndyVariation}
           homeFolderPath={homeFolderPath}
@@ -161,10 +166,15 @@ const IndyStation = ({
 }
 
 const mapStateToProps = (state) => {
-  let { activeMasterSession, activeIndy, activeIndyVariation } =
-    getActives(state)
+  let {
+    activeUniVariation,
+    activeMasterSession,
+    activeIndy,
+    activeIndyVariation,
+  } = getActives(state)
 
   return {
+    activeUniVariation,
     activeIndy,
     activeMasterSession,
     activeIndyVariation,

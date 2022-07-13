@@ -111,6 +111,7 @@ const SortableContainer = sortableContainer(
 )
 
 const TakesGroupModule = ({
+  activeUniVariation,
   activeMasterSession,
   activeIndyVariation,
   updateUnis,
@@ -191,23 +192,15 @@ const TakesGroupModule = ({
         )
       ) {
         window.notify('Saving ...')
+
         ipcRenderer.send('save-combo', {
           readPath: activeMasterSession.path,
           combo,
           title: activeIndyVariation.title,
           homeFolderPath,
+
+          variationId: activeUniVariation.id,
           masterId: activeMasterSession.id,
-          stateUpdate: {
-            savedCombos: {
-              ...activeMasterSession['savedCombos'],
-              [activeIndyVariation.title]: [
-                ...activeMasterSession['savedCombos'][
-                  activeIndyVariation.title
-                ],
-                combo,
-              ],
-            },
-          },
         })
       } else {
         window.notify('Already Saved')
@@ -317,19 +310,6 @@ const TakesGroupModule = ({
       tbody.classList.remove('takes-group__module__body--scroll')
     }
   }, [activeIndyVariation.savedTakes])
-
-  useEffect(() => {
-    const keyEventHandler = (e) => {
-      if (
-        e.key === '2' &&
-        activeIndyVariation.isSourceAvailable &&
-        !isObjectEmpty(activeIndyVariation.savedTakes)
-      )
-        generateComboFromSavedAllAction()
-    }
-    document.body.addEventListener('keyup', keyEventHandler)
-    return () => document.body.removeEventListener('keyup', keyEventHandler)
-  }, [activeIndyVariation])
 
   return (
     <div className="takes-group__module">

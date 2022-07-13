@@ -14,10 +14,12 @@ process.on('message', ({ type, data }) => {
       saveComboToFile(data)
         .then((d) =>
           process.send({
-            type,
-            data: d.stateUpdate,
+            type: 'save-combo',
+            data: d.combo,
             extra: {
-              id: d.id,
+              title: d.title,
+              variationId: d.variationId,
+              masterId: d.masterId,
               removeal: d.removeal,
             },
           })
@@ -176,12 +178,11 @@ const saveComboToFile = ({
   title,
   homeFolderPath,
   masterId,
-  stateUpdate,
+  variationId,
 }) => {
   return new Promise((resolve, reject) => {
     if (!isReading[readPath]) {
-      let id = masterId
-      let removeal = combo + title + masterId
+      let removeal = combo + title + variationId + masterId
       console.log('reading operation')
       isReading[readPath] = true
 
@@ -208,7 +209,7 @@ const saveComboToFile = ({
               isReading[readPath] = false
 
               console.log('done writing')
-              resolve({ id, stateUpdate, removeal })
+              resolve({ variationId, masterId, title, combo, removeal })
 
               if (saveQueue.length > 0) {
                 console.log(`in queue ${saveQueue.length}`)
@@ -216,9 +217,11 @@ const saveComboToFile = ({
                   .then((d) =>
                     process.send({
                       type: 'save-combo',
-                      data: d.stateUpdate,
+                      data: d.combo,
                       extra: {
-                        id: d.id,
+                        title: d.title,
+                        variationId: d.variationId,
+                        masterId: d.masterId,
                         removeal: d.removeal,
                       },
                     })
@@ -229,7 +232,7 @@ const saveComboToFile = ({
                       data: err,
                       extra: {
                         type: 'save-combo',
-                        removeal: combo + title + masterId,
+                        removeal: combo + title + variationId + masterId,
                       },
                     })
                   )
@@ -272,7 +275,7 @@ const saveComboToFile = ({
           isReading[readPath] = false
 
           console.log('done writing')
-          resolve({ id, stateUpdate, removeal })
+          resolve({ variationId, masterId, title, combo, removeal })
 
           if (saveQueue.length > 0) {
             console.log(`in queue ${saveQueue.length}`)
@@ -280,9 +283,11 @@ const saveComboToFile = ({
               .then((d) =>
                 process.send({
                   type: 'save-combo',
-                  data: d.stateUpdate,
+                  data: d.combo,
                   extra: {
-                    id: d.id,
+                    title: d.title,
+                    variationId: d.variationId,
+                    masterId: d.masterId,
                     removeal: d.removeal,
                   },
                 })
@@ -293,7 +298,7 @@ const saveComboToFile = ({
                   data: err,
                   extra: {
                     type: 'save-combo',
-                    removeal: combo + title + masterId,
+                    removeal: combo + title + variationId + masterId,
                   },
                 })
               )
@@ -320,8 +325,8 @@ const saveComboToFile = ({
         combo,
         title,
         homeFolderPath,
+        variationId,
         masterId,
-        stateUpdate,
       })
     }
   })

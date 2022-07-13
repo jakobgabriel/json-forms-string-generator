@@ -263,6 +263,35 @@ const uniReducer = (state = {}, action) => {
           }
         }
 
+        case 'add-combo-to-master-session': {
+          let activeUni = state.variations[action.payload.variationId]
+          return {
+            ...state,
+            variations: {
+              ...state.variations,
+              [activeUni.id]: {
+                ...activeUni,
+                masterSessions: {
+                  ...activeUni.masterSessions,
+                  [action.payload.masterId]: {
+                    ...activeUni.masterSessions[action.payload.masterId],
+
+                    savedCombos: {
+                      ...activeUni.masterSessions[action.payload.masterId]
+                        .savedCombos,
+                      [action.payload.title]: [
+                        ...activeUni.masterSessions[action.payload.masterId]
+                          .savedCombos[action.payload.title],
+                        action.payload.data,
+                      ],
+                    },
+                  },
+                },
+              },
+            },
+          }
+        }
+
         case 'update-master-session-id': {
           let activeUni = state.variations[state.activeUniViewVariation.id]
           return {

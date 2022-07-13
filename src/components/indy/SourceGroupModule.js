@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { ipcRenderer } from 'electron'
 
 const SourceGroupModule = ({
+  activeUniVariation,
   activeMasterSession,
   activeIndy,
   activeIndyVariation,
@@ -10,8 +11,6 @@ const SourceGroupModule = ({
   homeFolderPath,
 }) => {
   const saveCombo = () => {
-    console.log(activeMasterSession['savedCombos'])
-    console.log(activeIndyVariation.title)
     if (activeMasterSession['savedCombos'][activeIndyVariation.title]) {
       if (
         !activeMasterSession['savedCombos'][activeIndyVariation.title].includes(
@@ -24,18 +23,9 @@ const SourceGroupModule = ({
           combo: activeIndyVariation.combo[holder],
           title: activeIndyVariation.title,
           homeFolderPath,
+
+          variationId: activeUniVariation.id,
           masterId: activeMasterSession.id,
-          stateUpdate: {
-            savedCombos: {
-              ...activeMasterSession['savedCombos'],
-              [activeIndyVariation.title]: [
-                ...activeMasterSession['savedCombos'][
-                  activeIndyVariation.title
-                ],
-                activeIndyVariation.combo[holder],
-              ],
-            },
-          },
         })
       } else {
         window.notify('Already Saved')

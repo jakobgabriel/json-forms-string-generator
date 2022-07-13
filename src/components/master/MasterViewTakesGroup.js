@@ -119,6 +119,7 @@ const SortableContainer = sortableContainer(
 )
 
 const MasterViewTakesGroup = ({
+  activeUniVariation,
   activeMasterSession,
   activeIndyVariation,
   updateUnis,
@@ -233,18 +234,14 @@ const MasterViewTakesGroup = ({
     if (activeMasterSession['savedCombos'][indy]) {
       if (!activeMasterSession['savedCombos'][indy].includes(combo)) {
         window.notify('Saving ...')
+
         ipcRenderer.send('save-combo', {
           readPath: activeMasterSession.path,
           combo,
           title: indy,
           homeFolderPath,
           masterId: activeMasterSession.id,
-          stateUpdate: {
-            savedCombos: {
-              ...activeMasterSession['savedCombos'],
-              [indy]: [...activeMasterSession['savedCombos'][indy], combo],
-            },
-          },
+          variationId: activeUniVariation.id,
         })
       } else {
         window.notify('Already Saved')
@@ -350,15 +347,6 @@ const MasterViewTakesGroup = ({
     }
   }, [activeMasterViewVariation.takes])
 
-  // useEffect(() => {
-  //   const keyEventHandler = (e) => {
-  //     if (e.key === "2" && activeIndyVariation.isSourceAvailable && !isObjectEmpty(activeIndyVariation.savedTakes))
-  //       generateComboFromSavedAllAction()
-  //   }
-  //   document.body.addEventListener("keyup", keyEventHandler)
-  //   return () => document.body.removeEventListener("keyup", keyEventHandler)
-  // }, [activeIndyVariation])
-
   return (
     <div className="takes-group__module takes-group__module--masterview">
       <div className="source-group__module__group">
@@ -413,9 +401,11 @@ const MasterViewTakesGroup = ({
 }
 
 const mapStateToProps = (state) => {
-  let { activeMasterSession, activeIndyVariation } = getActives(state)
+  let { activeUniVariation, activeMasterSession, activeIndyVariation } =
+    getActives(state)
 
   return {
+    activeUniVariation,
     activeIndyVariation: activeMasterSession ? activeIndyVariation : {},
     activeMasterSession,
     indies: activeMasterSession

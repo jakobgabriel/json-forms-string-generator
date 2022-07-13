@@ -25,7 +25,13 @@ RWP.on('message', ({ type, data, extra }) => {
   switch (type) {
     case 'save-combo': {
       isSavingsList = isSavingsList.filter((item) => item !== extra.removeal)
-      mainWindow.webContents.send('update-active-ms-id', data, extra.id)
+      mainWindow.webContents.send(
+        'add-combo-to-master-session',
+        data,
+        extra.title,
+        extra.variationId,
+        extra.masterId
+      )
       break
     }
 
@@ -108,13 +114,11 @@ ipcMain.on('open-uni-summary', (e, state) => {
 
 ipcMain.on(
   'save-combo',
-  (e, { readPath, combo, title, homeFolderPath, stateUpdate, masterId }) => {
-    // let fs = require('fs')
-
+  (e, { readPath, combo, title, homeFolderPath, variationId, masterId }) => {
     console.log('save to sheet')
 
-    if (!isSavingsList.includes(combo + title + masterId)) {
-      isSavingsList.push(combo + title + masterId)
+    if (!isSavingsList.includes(combo + title + variationId + masterId)) {
+      isSavingsList.push(combo + title + variationId + masterId)
 
       if (fs.existsSync(readPath)) {
         console.log('file exist')
@@ -125,9 +129,8 @@ ipcMain.on(
             writePath: readPath,
             combo,
             title,
-
             homeFolderPath,
-            stateUpdate,
+            variationId,
             masterId,
           },
         })
@@ -155,7 +158,7 @@ ipcMain.on(
                   combo,
                   title,
                   homeFolderPath,
-                  stateUpdate,
+                  variationId,
                   masterId,
                 },
               })
@@ -180,7 +183,7 @@ ipcMain.on(
                     combo,
                     title,
                     homeFolderPath,
-                    stateUpdate,
+                    variationId,
                     masterId,
                   },
                 })
@@ -231,6 +234,7 @@ function createWindow() {
   })
   mainWindow.removeMenu()
   require('@electron/remote/main').enable(mainWindow.webContents)
+
   // Load index.html into the new BrowserWindow
   mainWindow.loadURL(
     isDev
@@ -243,7 +247,7 @@ function createWindow() {
   })
 
   // Open DevTools - Remove for PRODUCTION!
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
   // Listen for window being closed
 
   let listener = (e) => {

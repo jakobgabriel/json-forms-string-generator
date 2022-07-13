@@ -602,12 +602,21 @@ ipcRenderer.on('open-uni', (e, data) => {
   store.dispatch({ type: UPDATEISOPEN, payload: { isLoadingOpen: false } })
 })
 
-ipcRenderer.on('update-active-ms-id', (e, data, id) => {
-  store.dispatch({
-    type: UPDATEUNIS,
-    payload: { type: 'update-master-session-id', data, id },
-  })
-})
+ipcRenderer.on(
+  'add-combo-to-master-session',
+  (e, data, title, variationId, masterId) => {
+    store.dispatch({
+      type: UPDATEUNIS,
+      payload: {
+        type: 'add-combo-to-master-session',
+        data,
+        title,
+        variationId,
+        masterId,
+      },
+    })
+  }
+)
 
 ipcRenderer.on('update-active-ms-save', (e, data) => {
   store.dispatch({
