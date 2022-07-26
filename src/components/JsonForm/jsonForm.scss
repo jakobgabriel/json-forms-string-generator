@@ -1,0 +1,44 @@
+.jsonForm {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+
+  &__group {
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-end;
+  }
+
+  &__btn {
+    width: 2.5rem;
+    height: 2.5rem;
+
+    fill: #fff;
+    background: #36d28a;
+    border: none;
+    outline: none;
+    border-radius: 0.3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    transition: background 0.3s;
+    &:hover {
+      background: #2caf72;
+    }
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}
+
+
+.disable {
+  pointer-events: none;
+  opacity: 0.7;
+}
+

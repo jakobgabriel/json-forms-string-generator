@@ -1,20 +1,73 @@
-import { HashRouter, Route } from 'react-router-dom'
+import React, { useState, useEffect, useMemo } from 'react'
 
-import './sass/main.scss'
+import SidePanel from './components/SidePanel/SidePanel'
+import SchemePanel from './components/schemePanel/SchemePanel'
 
-import Header from './components/fram/Header'
-import Dashboard from './components/windows/Dashboard'
-import UniSummary from './components/windows/UniSummary'
+import './App.scss'
+
+import AddSchemeModal from './components/addSchemeModal/AddSchemeModal'
+import SettingsModal from './components/settingsModal/SettingsModal'
+import JsonForm from './components/JsonForm/JsonForm'
 
 const App = () => {
+  const [schemes, setSchemes] = useState([])
+
+  const [activeSchemeId, setActiveSchemeId] = useState('')
+
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false)
+
+  let activeScheme = useMemo(
+    () => schemes.find((scheme) => scheme.id === activeSchemeId),
+    [schemes, activeSchemeId]
+  )
+
+  useEffect(() => {
+    let data = { ...window.localStorage }
+
+    if (data.active) {
+      setActiveSchemeId(data.active)
+      delete data.active
+    }
+
+    if (!data.seperator) {
+      window.localStorage.setItem('seperator', ',')
+    }
+    delete data.seperator
+
+    setSchemes(Object.values(data).map((schema) => JSON.parse(schema)))
+  }, [])
+
   return (
-    <HashRouter>
-      <div className="App__main">
-        <Route path="/" component={Header} />
-        <Route path="/dashboard" exact component={Dashboard} />
-        <Route path="/unisummary" exact component={UniSummary} />
-      </div>
-    </HashRouter>
+    <div className="App">
+      <SidePanel
+        setIsAddModalOpen={setIsAddModalOpen}
+        setIsSettingsModalOpen={setIsSettingsModalOpen}
+      />
+      <SchemePanel
+        schemes={schemes}
+        setSchemes={setSchemes}
+        setActiveSchemeId={setActiveSchemeId}
+        activeSchemeId={activeSchemeId}
+      />
+      <JsonForm activeScheme={activeScheme} />
+
+      <AddSchemeModal
+        open={isAddModalOpen}
+        onClose={() => {
+          setIsAddModalOpen(false)
+        }}
+        schemes={schemes}
+        setSchemes={setSchemes}
+      />
+
+      <SettingsModal
+        open={isSettingsModalOpen}
+        onClose={() => {
+          setIsSettingsModalOpen(false)
+        }}
+      />
+    </div>
   )
 }
 

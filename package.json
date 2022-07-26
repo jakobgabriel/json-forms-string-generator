@@ -1,13 +1,13 @@
 {
-  "name": "ito",
-  "description": "Advanced combinations generator",
+  "name": "string-generator",
+  "description": "Advanced string generator",
   "author": "Yosh <imyosh4@gmail.com>",
-  "version": "1.0.5",
+  "version": "1.0.0",
   "main": "public/electron.js",
-  "productName": "ito",
+  "productName": "string-generator",
   "build": {
-    "appId": "com.ito.ito",
-    "productName": "ito",
+    "appId": "com.string.generator",
+    "productName": "string-generator",
     "mac": {
       "category": "public.app-category.productivity",
       "target": [
@@ -30,44 +30,30 @@
       ],
       "icon": "./build/icons/mac/icon.icns",
       "category": "Utility"
-    },
-    "extraResources": [
-      {
-        "from": "public/functions",
-        "to": "functions"
-      },
-      {
-        "from": "public/processes",
-        "to": "processes"
-      }
-    ]
+    }
   },
   "homepage": "./",
   "dependencies": {
-    "@electron/remote": "^2.0.1",
-    "@szhsin/react-menu": "^3.0.0",
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@hookform/resolvers": "^2.9.6",
+    "@jsonforms/core": "3.0.0-alpha.3",
+    "@jsonforms/material-renderers": "3.0.0-alpha.3",
+    "@jsonforms/react": "3.0.0-alpha.3",
+    "@mui/icons-material": "^5.2.0",
+    "@mui/lab": "^5.0.0-alpha.58",
+    "@mui/material": "^5.2.2",
+    "@mui/styles": "^5.2.3",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.0",
     "@testing-library/user-event": "^13.2.1",
-    "array-move": "^4.0.0",
     "cross-env": "^7.0.3",
     "electron-is-dev": "^2.0.0",
-    "electron-squirrel-startup": "^1.0.0",
-    "electron-store": "^8.0.1",
-    "jodit-react": "^1.2.18",
-    "lodash.debounce": "^4.0.8",
-    "mv": "^2.1.1",
-    "processes": "file:public/processes",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "react-multi-select-component": "^4.2.3",
-    "react-redux": "^7.2.5",
-    "react-router-dom": "^5.3.0",
-    "react-sortable-hoc": "^2.0.0",
-    "redux": "^4.1.1",
-    "redux-state-sync": "^3.1.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "sass": "^1.49.7",
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^2.1.0",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "react-start": "react-scripts start",
@@ -88,7 +74,7 @@
   },
   "devDependencies": {
     "concurrently": "^7.0.0",
-    "electron": "^17.1.2",
+    "electron": "^19.0.9",
     "electron-builder": "^23.0.3",
     "nodemon": "^2.0.19",
     "react-scripts": "^5.0.0",

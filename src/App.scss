@@ -1,0 +1,84 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-family: 'Poppins';
+}
+
+html {
+  box-sizing: border-box;
+  // font-size: 62.5%; // 10px/16px = 62.5% -> 1rem = 10px
+  // position: relative;
+}
+
+body {
+  // font-family: 'Poppins';
+  user-select: none;
+  // position: relative;
+  height: 100vh;
+}
+
+#root {
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+  display: flex;
+}
+
+@font-face {
+  font-family: 'Russo One';
+  src: URL('./fonts/RussoOne-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: URL('./fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: URL('./fonts/Poppins-Medium.ttf') format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: URL('./fonts/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+}
+
+::-webkit-scrollbar {
+  width: 0.48rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 2px;
+  background: #ebf6fc;
+
+  scroll-padding-left: 2rem;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+
+  background: #36d28a;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-size: 6px 12px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
