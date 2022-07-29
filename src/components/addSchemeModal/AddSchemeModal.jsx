@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState, useMemo } from 'react'
+import './addSchemeModal.scss'
+
 import { Dialog, TextField } from '@mui/material'
 import { useForm } from 'react-hook-form'
-
-import TextArea from '../textArea/TextArea'
-
-import './addSchemeModal.scss'
+import { ipcRenderer } from 'electron'
+import debounce from 'lodash.debounce'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+
+import TextArea from '../textArea/TextArea'
 
 const isJson = (jsonString) => {
   try {
@@ -16,7 +18,6 @@ const isJson = (jsonString) => {
       return o
     }
   } catch (e) {}
-
   return false
 }
 
@@ -32,6 +33,24 @@ const schema = yup
   .required()
 
 const AddSchemeModal = ({ open, onClose, schemes, setSchemes }) => {
+  const [isOpeningURL, setIsOpeningURL] = useState(false)
+
+  const openURL = useMemo(
+    (e) =>
+      debounce(
+        () => {
+          setIsOpeningURL(true)
+          ipcRenderer.send('open-link', 'https://jsonforms.io/examples/basic')
+          setTimeout(() => {
+            setIsOpeningURL(false)
+          }, 1000)
+        },
+        1000,
+        { leading: true, trailing: false }
+      ),
+    []
+  )
+
   const {
     register,
     handleSubmit,
@@ -83,6 +102,21 @@ const AddSchemeModal = ({ open, onClose, schemes, setSchemes }) => {
             <TextArea {...register('uischema')} />
           </div>
         </div>
+        <div
+          onClick={openURL}
+          className="addSchemeModal__btn addSchemeModal__btn--info"
+        >
+          {isOpeningURL ? (
+            <svg>
+              <use xlinkHref="./svg/globe.svg#globe"></use>
+            </svg>
+          ) : (
+            <svg>
+              <use xlinkHref="./svg/info-circle.svg#info-circle"></use>
+            </svg>
+          )}
+        </div>
+
         <button className="addSchemeModal__btn">
           <svg>
             <use xlinkHref="./svg/plus.svg#plus"></use>

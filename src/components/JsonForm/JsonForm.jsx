@@ -4,16 +4,16 @@ import { materialCells, materialRenderers } from '@jsonforms/material-renderers'
 
 import './jsonForm.scss'
 
-// const initialData = {
-//   name: 'Send email to Adrian',
-//   description: 'Confirm if you have passed the subject\nHereby ...',
-//   done: true,
-//   recurrence: 'Daily',
-//   rating: 3,
-// }
+const initialData = {
+  name: 'Send email to Adrian',
+  description: 'Confirm if you have passed the subject\nHereby ...',
+  done: true,
+  recurrence: 'Daily',
+  rating: 3,
+}
 
 const JsonForm = ({ activeScheme }) => {
-  const [data, setData] = useState({})
+  const [data, setData] = useState(initialData)
   const [copied, setIsCopied] = useState(false)
 
   // const stringifiedData = useMemo(() => JSON.stringify(data, null, 2), [data])
@@ -57,7 +57,7 @@ const JsonForm = ({ activeScheme }) => {
       )
   }
   return (
-    <div className='jsonForm'>
+    <div className="jsonForm">
       {activeScheme ? (
         <>
           <JsonForms
@@ -69,21 +69,21 @@ const JsonForm = ({ activeScheme }) => {
             onChange={({ errors, data }) => setData(data)}
           />
 
-          <div className='jsonForm__group'>
-            <button onClick={clearData} className='jsonForm__btn'>
+          <div className="jsonForm__group">
+            <button onClick={clearData} className="jsonForm__btn">
               <svg>
-                <use xlinkHref='./svg/trash-alt.svg#trash-alt'></use>
+                <use xlinkHref="./svg/trash-alt.svg#trash-alt"></use>
               </svg>
             </button>
 
             <button onClick={copyData} className={`jsonForm__btn`}>
               {copied ? (
                 <svg>
-                  <use xlinkHref='./svg/check.svg#check'></use>
+                  <use xlinkHref="./svg/check.svg#check"></use>
                 </svg>
               ) : (
                 <svg>
-                  <use xlinkHref='./svg/copy-alt.svg#copy-alt'></use>
+                  <use xlinkHref="./svg/copy-alt.svg#copy-alt"></use>
                 </svg>
               )}
             </button>

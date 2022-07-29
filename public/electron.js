@@ -8,6 +8,18 @@ process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 
 let mainWindow
 
+let isOpeningLink = false
+ipcMain.on('open-link', (e, link) => {
+  if (!isOpeningLink) {
+    isOpeningLink = true
+    require('electron')
+      .shell.openExternal(link)
+      .then(() => {
+        isOpeningLink = false
+      })
+  }
+})
+
 // Create a new BrowserWindow when `app` is ready
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -37,7 +49,7 @@ function createWindow() {
   })
 
   // Open DevTools - Remove for PRODUCTION!
-  // mainWindow.webContents.openDevTools()
+  if (isDev) mainWindow.webContents.openDevTools()
   // Listen for window being closed
 }
 

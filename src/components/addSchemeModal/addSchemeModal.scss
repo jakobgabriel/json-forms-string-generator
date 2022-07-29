@@ -52,7 +52,7 @@
     top: 1rem;
     right: 1rem;
     fill: #fff;
-    background: #36d28a !important;
+    background: #36d28a;
     border: none;
     outline: none;
     border-radius: 0.3rem;
@@ -62,9 +62,23 @@
     justify-content: center;
 
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
+
     &:hover {
-      background: #2caf72;
+      background: #33c480;
+    }
+
+    &--info {
+      right: 4.5rem;
+      svg {
+        width: 2rem;
+        height: 2rem;
+      }
+      background: #dfdfdf;
+
+      &:hover {
+        background: #36d28a;
+      }
     }
 
     svg {
