@@ -4,6 +4,11 @@
   padding: 1.6rem;
   position: relative;
 
+  input {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
   &__close {
     position: absolute;
     top: 0.5rem;

@@ -17,10 +17,10 @@ const App = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false)
 
-  let activeScheme = useMemo(
-    () => schemes.find((scheme) => scheme.id === activeSchemeId),
-    [schemes, activeSchemeId]
-  )
+  let activeScheme = useMemo(() => {
+    if (schemes.length === 1) setActiveSchemeId(schemes[0].id)
+    return schemes.find((scheme) => scheme.id === activeSchemeId)
+  }, [schemes, activeSchemeId])
 
   useEffect(() => {
     let data = { ...window.localStorage }
