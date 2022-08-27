@@ -2,7 +2,7 @@
 
 ## App Purpose
 
-Since most of the common used applications during the daily live are not able to create general and self defined user input fields, this small desctop application was build, to enable the ability of structured and more user friendly and self defined user data input. It should enhance the functions of other applications that are not able to provide self defined user input fields. 
+Since most of the common used applications during the daily life are not able to create general and self defined user input fields, this small desktop application was build, to enable the ability of structured, more user friendly and self defined user data input. It should enhance the functions of other applications that are not able to provide self defined user input fields. 
  
 ![App Overview and Purpose](https://github.com/jakobgabriel/json-forms-string-generator/blob/main/docs/images/home_screen_another_schema_2.png)
 
@@ -17,14 +17,27 @@ Before starting of the functional description of the app, a small installation g
 
 ### App Installation and Setup
 
+#### Installation on Windows
+
+For the installation on Windows you can download the latest executable program in the [Release Section](https://github.com/jakobgabriel/json-forms-string-generator/releases). After the download you can double click on the executable program and start the installation on Windows. 
+After a short installation time (around 1min) you are already finished and you can open the program. 
+
 
 ----
 
 ### Home Screen and App Overview
 
-
+After the program is opened, the App Home Screen will be shown as following. 
 
 ![App Home](https://github.com/jakobgabriel/json-forms-string-generator/blob/main/docs/images/home_screen.png)
+
+The App currently contains three sections: 
+
+1. The default section is the overview over the currently available JSON Schemas with a list view on the left side, where the schema can be selected
+
+2. ...
+
+3. ...
 
 
 ----
@@ -73,6 +86,13 @@ Before starting of the functional description of the app, a small installation g
 ### General App Settings 
 
 **to be developed**
+
+
+----
+
+### Platform support
+
+**to be described**
 
 
 ----
