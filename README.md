@@ -35,19 +35,21 @@ The App currently contains three sections:
 
 1. The default section is the overview over the currently available JSON Schemas with a list view on the left side, where the schema can be selected
 
-2. ...
+2. The second section is the Create New JSON Schema and UI Schema section, where you can add an additional schema 
 
-3. ...
+3. The third section is the App settings section where currently the global settings of the separator is added (will be changed in the future)
 
 
 ----
 
 ### Create a New JSON Schema and UI Schema
 
-
+When a new JSON Schema needs to be created, the `Add` Button on the left side will open a dialoge where the `name`, the `JSON schema` and the `UI schema` can be defined. If help is necessary for the definition of the Schemas, you can visit the [jsonforms documentation](https://jsonforms.io/), by clicking the `information` button.
 
 ![New JSON Schema and UI Schema](https://github.com/jakobgabriel/json-forms-string-generator/blob/main/docs/images/add_form_ui_schema.png)
 
+
+After the `JSON schema` and the `UI schema` is defined, they can be saved with the `Add` Button.
 
 ![New JSON Schema and UI Schema Defined](https://github.com/jakobgabriel/json-forms-string-generator/blob/main/docs/images/add_form_ui_schema_definition.png)
 
@@ -56,10 +58,14 @@ The App currently contains three sections:
 
 ### Use an Existing JSON Schema
 
+**to be defined**
+
 
 ----
 
 ### Delete an Existing JSON Schema
+
+The deletion of a `JSON Schema`, is possible by selecting the schema on the left side and clicking the `Delete` Button. 
 
 
 ![Delete existing JSON Schema and UI Schema](https://github.com/jakobgabriel/json-forms-string-generator/blob/main/docs/images/delete_existing_form_ui_schema.png)
@@ -69,7 +75,7 @@ The App currently contains three sections:
 
 ### Edit an Existing JSON Schema
 
-**to be developed**
+**to be described**
 
 
 ----
