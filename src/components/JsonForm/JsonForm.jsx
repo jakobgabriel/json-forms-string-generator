@@ -1,42 +1,55 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { JsonForms } from '@jsonforms/react'
 import { materialCells, materialRenderers } from '@jsonforms/material-renderers'
 
 import './jsonForm.scss'
 
-const initialData = {}
+const flatten = (ob) => {
+  let result = {}
+  for (const i in ob) {
+    if (typeof ob[i] === 'object' && !Array.isArray(ob[i])) {
+      const temp = flatten(ob[i])
+      for (const j in temp) {
+        result[j] = temp[j]
+      }
+    } else {
+      result[i] = ob[i]
+    }
+  }
+  return result
+}
 
 const JsonForm = ({ activeScheme }) => {
-  const [data, setData] = useState(initialData)
+  const [data, setData] = useState({})
   const [copied, setIsCopied] = useState(false)
-
-  // const stringifiedData = useMemo(() => JSON.stringify(data, null, 2), [data])
 
   const clearData = () => {
     setData({})
   }
 
-  const flatten = (ob) => {
-    let result = {}
-    for (const i in ob) {
-      if (typeof ob[i] === 'object' && !Array.isArray(ob[i])) {
-        const temp = flatten(ob[i])
-        for (const j in temp) {
-          result[j] = temp[j]
-        }
-      } else {
-        result[i] = ob[i]
-      }
-    }
-    return result
-  }
+  useEffect(() => {
+    setData({})
+  }, [])
 
   const copyData = () => {
-    let seperator = window.localStorage.getItem('seperator')
-      ? window.localStorage.getItem('seperator')
-      : ','
+    let flattenedData = flatten(data)
+
+    console.log(flattenedData)
+    let seperator = activeScheme.seperator ? activeScheme.seperator : ','
+
+    let string = ''
+    console.log(activeScheme)
+    activeScheme.dataOrder.map((dataPoint) => {
+      if (flattenedData[dataPoint])
+        if (string) string = string + seperator + flattenedData[dataPoint]
+        else string = flattenedData[dataPoint]
+    })
+
     navigator.clipboard
-      .writeText(Object.values(flatten(data)).join(seperator))
+      .writeText(
+        string
+        // Object.values(flatten(data)).join(seperator)
+      )
       .then(
         function () {
           setIsCopied(true)
@@ -50,17 +63,20 @@ const JsonForm = ({ activeScheme }) => {
         }
       )
   }
+
   return (
-    <div className="jsonForm">
+    <div id="jsonForm" className="jsonForm">
       {activeScheme ? (
         <>
           <JsonForms
-            schema={JSON.parse(activeScheme.schema)}
-            uischema={JSON.parse(activeScheme.uischema)}
+            schema={activeScheme.schema}
+            uischema={activeScheme.uischema}
             data={data}
             renderers={materialRenderers}
             cells={materialCells}
-            onChange={({ errors, data }) => setData(data)}
+            onChange={({ errors, data }) => {
+              if (Object.keys(data).length > 0) setData(data)
+            }}
           />
 
           <div className="jsonForm__group">

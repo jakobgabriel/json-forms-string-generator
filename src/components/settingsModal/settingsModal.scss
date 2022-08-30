@@ -1,13 +1,8 @@
 .settingsModal {
-  width: 25rem;
-  height: 15rem;
-  padding: 1.6rem;
+  width: 32rem;
+  height: 20rem;
+  padding: 1.5rem;
   position: relative;
-
-  input {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
 
   &__close {
     position: absolute;
@@ -29,36 +24,33 @@
     color: #494949;
   }
 
-  &__btn {
-    width: 2.5rem;
-    height: 2.5rem;
-
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    fill: #fff;
-    background: #33c480 !important;
-    border: none;
-    outline: none;
-    border-radius: 0.3rem;
-
+  &__body {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+  }
 
-    cursor: pointer;
-    transition: background 0.3s;
-    &:hover {
-      background: #33c480;
+  &__version {
+    display: flex;
+    gap: 1rem;
+
+    &__title {
+      color: #21d17f;
     }
 
-    svg {
-      width: 2rem;
-      height: 2rem;
+    &__number {
+      letter-spacing: 5px;
     }
   }
-}
 
-.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
-  max-width: 100% !important;
+  &__licence {
+    display: flex;
+    gap: 1rem;
+    text-align: justify;
+    text-justify: inter-word;
+
+    &__title {
+      color: #21d17f;
+    }
+  }
 }

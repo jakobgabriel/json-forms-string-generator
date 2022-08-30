@@ -1,7 +1,10 @@
 .addSchemeModal {
-  width: 50rem;
-  height: 30rem;
-  padding: 1.6rem;
+  // width: 50rem;
+  // height: 30rem;
+  width: 76vw;
+  height: 76vh;
+
+  padding: 1.5rem;
   position: relative;
 
   &__close {
@@ -18,9 +21,29 @@
     font-weight: bold;
     color: #494949;
     font-size: 1.25rem;
-    line-height: 1.6;
     letter-spacing: 0.0075em;
     flex: 0 0 auto;
+    height: 32px;
+
+    &__group {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-right: 6rem;
+    }
+  }
+
+  &__error {
+    color: rgb(255, 83, 83);
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  &__fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
   }
 
   &__textareas {
@@ -41,6 +64,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+      width: calc(50% - 0.5rem);
     }
   }
 

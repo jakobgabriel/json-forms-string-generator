@@ -1,7 +1,8 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import './addSchemeModal.scss'
 
 import { Dialog, TextField } from '@mui/material'
+
 import { useForm } from 'react-hook-form'
 import { ipcRenderer } from 'electron'
 import debounce from 'lodash.debounce'
@@ -9,31 +10,56 @@ import debounce from 'lodash.debounce'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
-import TextArea from '../textArea/TextArea'
+import JsonInput from '../jsonInput/JsonInput'
+import ConfirmModal from '../schemePanel/ConfirmModal'
 
-const isJson = (jsonString) => {
-  try {
-    var o = JSON.parse(jsonString)
-    if (o && typeof o === 'object') {
-      return o
-    }
-  } catch (e) {}
-  return false
-}
+import {
+  isJson,
+  isJsonEmpty,
+  isValidAjvScheme,
+  isJsonWithElements,
+  returnElements,
+} from '../../functions'
+
+var ReactOverflowTooltip = require('react-overflow-tooltip')
+
+import OverflowTip from '../overflowTip/OverflowTip'
 
 const schema = yup
   .object({
     name: yup.string().required(),
+    seperator: yup.string().required(),
     schema: yup
-      .string()
-      .test('isJson', 'this is not a json', isJson)
+      .object()
+      .test('isJson', 'schema is not in a json form', isJson)
+      .test('isJsonEmpty', 'schema json is empty', isJsonEmpty)
+      .test({
+        name: 'isAjvValid',
+        skipAbsent: true,
+        test(value, ctx) {
+          return isValidAjvScheme(value, ctx)
+        },
+      })
       .required(),
-    uischema: yup.string().test('isJson', 'this is not a json', isJson),
+    uischema: yup
+      .object()
+      .test('isJson', 'ui schema is not in a json form', isJson)
+      .test('isJsonEmpty', 'ui schema json is empty', isJsonEmpty)
+      .test('isJsonWithElements', 'ui schema is invalid', isJsonWithElements),
   })
   .required()
 
-const AddSchemeModal = ({ open, onClose, schemes, setSchemes }) => {
+let updatedData = {}
+
+const AddSchemeModal = ({
+  open,
+  onClose,
+  schemes,
+  setSchemes,
+  toEditSchema,
+}) => {
   const [isOpeningURL, setIsOpeningURL] = useState(false)
+  const [isUpdateConfirmOpen, setIsUpdateConfirmOpen] = React.useState(false)
 
   const openURL = useMemo(
     (e) =>
@@ -51,28 +77,47 @@ const AddSchemeModal = ({ open, onClose, schemes, setSchemes }) => {
     []
   )
 
+  const defaultValues = {
+    name: '',
+    seperator: '',
+    schema: {},
+    uischema: {},
+  }
+
   const {
     register,
     handleSubmit,
+    setValue,
+    getValues,
     reset,
-    // formState: {},
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: defaultValues,
   })
 
+  useEffect(() => {
+    reset(toEditSchema ? toEditSchema : defaultValues)
+  }, [toEditSchema])
+
   const onSubmit = handleSubmit((data) => {
-    let id = window.crypto.randomUUID()
-    window.localStorage.setItem(
-      id,
-      JSON.stringify({ id, ...data }).replaceAll('\n', '')
-    )
-
-    setSchemes([...schemes, { id, ...data }])
-
-    setTimeout(() => {
-      reset()
-    }, 300)
-    onClose()
+    if (toEditSchema) {
+      updatedData = data
+      setIsUpdateConfirmOpen(true)
+    } else {
+      let id = window.crypto.randomUUID()
+      let dataOrder = returnElements(data.uischema)
+      console.log(dataOrder)
+      window.localStorage.setItem(
+        id,
+        JSON.stringify({ id, dataOrder, ...data }).replaceAll('\n', '')
+      )
+      setSchemes([...schemes, { id, dataOrder, ...data }])
+      setTimeout(() => {
+        reset()
+      }, 300)
+      onClose()
+    }
   })
 
   return (
@@ -81,25 +126,88 @@ const AddSchemeModal = ({ open, onClose, schemes, setSchemes }) => {
         <svg onClick={onClose} className="addSchemeModal__close">
           <use xlinkHref="./svg/close.svg#close"></use>
         </svg>
-        <h2 className="addSchemeModal__title">Add Form Schema</h2>
 
-        <TextField
-          {...register('name')}
-          // className={`login__input ${errors.name && 'input--invalid'}`}
-          id="standard-basic"
-          label="Name"
-          variant="standard"
-          style={{ marginLeft: '0.4rem' }}
-        />
+        <div className="addSchemeModal__title__group">
+          <h2 className="addSchemeModal__title">
+            {toEditSchema ? `Edit ${toEditSchema.name}` : 'Add Form Schema'}
+          </h2>
+          <div className="addSchemeModal__error">
+            <OverflowTip
+              someLongText={
+                Object.keys(errors).length
+                  ? Object.values(errors)[0].message
+                  : ''
+              }
+              value={
+                Object.keys(errors).length
+                  ? Object.values(errors)[0].message
+                  : ''
+              }
+            />
+          </div>
+
+          {/* <ReactOverflowTooltip title="Error">
+              {
+
+                
+            </div>
+            <div className="addSchemeModal__error">
+              too lond adsf asdf asdf d fasdf asdf asdf df asdf sadf sadf fasd
+              fasd fasdfasdf dfas dfas fdf asdf asdf asdf asdadsf asdf sadf sdf
+              asdf asdfg text
+            </div>
+          </ReactOverflowTooltip> */}
+        </div>
+
+        <div className="addSchemeModal__fields">
+          <div>
+            <TextField
+              {...register('name')}
+              // className={`login__input ${errors.name && 'input--invalid'}`}
+              id="standard-basic"
+              label="Name"
+              variant="standard"
+              style={{ marginLeft: '0.4rem' }}
+            />
+          </div>
+
+          <div>
+            <TextField
+              {...register('seperator')}
+              // className={`login__input ${errors.name && 'input--invalid'}`}
+              id="standard-basic"
+              label="Seperator"
+              variant="standard"
+              style={{ marginLeft: '0.4rem' }}
+            />
+          </div>
+        </div>
+
         <div className="addSchemeModal__textareas">
           <div className="addSchemeModal__textareas__element">
             <div className="addSchemeModal__textareas__title">Schema</div>
-            <TextArea {...register('schema')} />
+            {/* <TextArea {...register('schema')} /> */}
+
+            <JsonInput
+              id="json1"
+              name="schema"
+              setValue={setValue}
+              error={errors.schema}
+              value={getValues('schema')}
+              // {...register('schema')}?
+            />
+
             {/* <TextArea {...register('schema')} /> */}
           </div>
           <div className="addSchemeModal__textareas__element">
             <div className="addSchemeModal__textareas__title">UI Schema</div>
-            <TextArea {...register('uischema')} />
+            <JsonInput
+              id="json2"
+              name="uischema"
+              setValue={setValue}
+              error={errors.uischema}
+              value={getValues('uischema')}
+            />
           </div>
         </div>
         <div
@@ -118,11 +226,43 @@ const AddSchemeModal = ({ open, onClose, schemes, setSchemes }) => {
         </div>
 
         <button className="addSchemeModal__btn">
-          <svg>
-            <use xlinkHref="./svg/plus.svg#plus"></use>
-          </svg>
+          {toEditSchema ? (
+            <svg>
+              <use xlinkHref="./svg/save.svg#save"></use>
+            </svg>
+          ) : (
+            <svg>
+              <use xlinkHref="./svg/plus.svg#plus"></use>
+            </svg>
+          )}
         </button>
       </form>
+
+      <ConfirmModal
+        open={isUpdateConfirmOpen}
+        setOpen={setIsUpdateConfirmOpen}
+        message="Are you sure you want to update this schema ?"
+        handleConfirm={() => {
+          let dataOrder = returnElements(updatedData.uischema)
+
+          window.localStorage.setItem(
+            toEditSchema.id,
+            JSON.stringify({ ...updatedData, dataOrder }).replaceAll('\n', '')
+          )
+          setSchemes(
+            schemes.map((scheme) => {
+              if (scheme.id === toEditSchema.id)
+                return { ...updatedData, dataOrder }
+              return scheme
+            })
+          )
+
+          setTimeout(() => {
+            reset()
+          }, 300)
+          onClose()
+        }}
+      />
     </Dialog>
   )
 }

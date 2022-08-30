@@ -1,21 +1,18 @@
 import React, { useState, useEffect, useMemo } from 'react'
-
-import SidePanel from './components/SidePanel/SidePanel'
-import SchemePanel from './components/schemePanel/SchemePanel'
-
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import './App.scss'
 
-import AddSchemeModal from './components/addSchemeModal/AddSchemeModal'
+import Schemes from './windows/schemes/Schemes'
+import Documentation from './windows/documentation/Documentation'
+import SidePanel from './components/SidePanel/SidePanel'
 import SettingsModal from './components/settingsModal/SettingsModal'
-import JsonForm from './components/JsonForm/JsonForm'
 
 const App = () => {
-  const [schemes, setSchemes] = useState([])
-
-  const [activeSchemeId, setActiveSchemeId] = useState('')
-
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false)
+
+  const [schemes, setSchemes] = useState([])
+  const [activeSchemeId, setActiveSchemeId] = useState('')
 
   let activeScheme = useMemo(() => {
     if (schemes.length === 1) setActiveSchemeId(schemes[0].id)
@@ -30,36 +27,35 @@ const App = () => {
       delete data.active
     }
 
-    if (!data.seperator) {
-      window.localStorage.setItem('seperator', ',')
-    }
-    delete data.seperator
-
     setSchemes(Object.values(data).map((schema) => JSON.parse(schema)))
   }, [])
 
   return (
     <div className="App">
-      <SidePanel
-        setIsAddModalOpen={setIsAddModalOpen}
-        setIsSettingsModalOpen={setIsSettingsModalOpen}
-      />
-      <SchemePanel
-        schemes={schemes}
-        setSchemes={setSchemes}
-        setActiveSchemeId={setActiveSchemeId}
-        activeSchemeId={activeSchemeId}
-      />
-      <JsonForm activeScheme={activeScheme} />
+      <HashRouter>
+        <SidePanel
+          setIsAddModalOpen={setIsAddModalOpen}
+          setIsSettingsModalOpen={setIsSettingsModalOpen}
+        />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Schemes
+                schemes={schemes}
+                setSchemes={setSchemes}
+                activeScheme={activeScheme}
+                activeSchemeId={activeSchemeId}
+                setActiveSchemeId={setActiveSchemeId}
+                isAddModalOpen={isAddModalOpen}
+                setIsAddModalOpen={setIsAddModalOpen}
+              />
+            }
+          ></Route>
 
-      <AddSchemeModal
-        open={isAddModalOpen}
-        onClose={() => {
-          setIsAddModalOpen(false)
-        }}
-        schemes={schemes}
-        setSchemes={setSchemes}
-      />
+          <Route path="/documentation" element={<Documentation />}></Route>
+        </Routes>
+      </HashRouter>
 
       <SettingsModal
         open={isSettingsModalOpen}

@@ -1,5 +1,5 @@
 import React from 'react'
-import AlertDialog from './ConfirmDelete'
+import ConfirmModal from './ConfirmModal'
 import './schemePanel.scss'
 
 const SchemePanel = ({
@@ -7,6 +7,9 @@ const SchemePanel = ({
   setSchemes,
   setActiveSchemeId,
   activeSchemeId,
+
+  setIsAddModalOpen,
+  setToEditSchema,
 }) => {
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = React.useState(false)
   const [deleteId, setDeleteId] = React.useState(false)
@@ -14,6 +17,12 @@ const SchemePanel = ({
   const setActive = (id) => {
     setActiveSchemeId(id)
     window.localStorage.setItem('active', id)
+  }
+
+  const editSchema = (e, schema) => {
+    e.stopPropagation()
+    setToEditSchema(schema)
+    setIsAddModalOpen(true)
   }
 
   const deleteSchema = (e, id) => {
@@ -39,12 +48,19 @@ const SchemePanel = ({
                 <svg className="schemePanel__item__icon">
                   <use xlinkHref="./svg/circle.svg#circle"></use>
                 </svg>
-                {schema.name}
+                <div className="schemePanel__item__name">{schema.name}</div>
               </div>
 
               <svg
+                onClick={(e) => editSchema(e, schema)}
+                className="schemePanel__item__oicon schemePanel__item__oicon--edit"
+              >
+                <use xlinkHref="./svg/edit.svg#edit"></use>
+              </svg>
+
+              <svg
                 onClick={(e) => deleteSchema(e, schema.id)}
-                className="schemePanel__item__trash"
+                className="schemePanel__item__oicon schemePanel__item__oicon--trash"
               >
                 <use xlinkHref="./svg/trash-alt.svg#trash-alt"></use>
               </svg>
@@ -54,12 +70,15 @@ const SchemePanel = ({
           <div className="schemePanel__empty">click + to get started</div>
         )}
       </div>
-      <AlertDialog
+
+      <ConfirmModal
         open={isDeleteConfirmOpen}
         setOpen={setIsDeleteConfirmOpen}
-        deleteId={deleteId}
-        schemes={schemes}
-        setSchemes={setSchemes}
+        message="Are you sure you want to delete this schema ?"
+        handleConfirm={() => {
+          window.localStorage.removeItem(deleteId)
+          setSchemes(schemes.filter((schema) => schema.id !== deleteId))
+        }}
       />
     </div>
   )

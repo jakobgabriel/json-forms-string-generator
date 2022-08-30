@@ -1,42 +1,39 @@
-import React, { useState } from 'react'
-import { Dialog, TextField } from '@mui/material'
-
+import React from 'react'
+import { Dialog } from '@mui/material'
 import './settingsModal.scss'
 
-const SettingsModal = ({ open, onClose }) => {
-  const [seperator, setSeperator] = useState(
-    window.localStorage.getItem('seperator')
-      ? window.localStorage.getItem('seperator')
-      : ','
-  )
+const { version } = require('../../../package.json')
 
+const SettingsModal = ({ open, onClose }) => {
   const onSubmit = (e) => {
     e.preventDefault()
-    window.localStorage.setItem('seperator', seperator)
     onClose()
   }
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <form onSubmit={onSubmit} className='settingsModal'>
-        <svg onClick={onClose} className='settingsModal__close'>
-          <use xlinkHref='./svg/close.svg#close'></use>
+      <form onSubmit={onSubmit} className="settingsModal">
+        <svg onClick={onClose} className="settingsModal__close">
+          <use xlinkHref="./svg/close.svg#close"></use>
         </svg>
-        <h2 className='settingsModal__title'>Settings</h2>
+        <h2 className="settingsModal__title">Settings</h2>
 
-        <TextField
-          value={seperator}
-          onChange={(e) => setSeperator(e.target.value)}
-          label='Seperator'
-          size='small'
-          required
-        />
+        <div className="settingsModal__body">
+          <div className="settingsModal__version">
+            <span className="settingsModal__version__title">Version</span>
+            <span className="settingsModal__version__number">{version}</span>
+          </div>
 
-        <button className='settingsModal__btn'>
-          <svg>
-            <use xlinkHref='./svg/save.svg#save'></use>
-          </svg>
-        </button>
+          <div className="settingsModal__licence">
+            <span className="settingsModal__licence__title">Licence</span>
+            <span>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo
+              repellendus aperiam in officiis hic facere fugit praesentium nemo
+              quasi. Quis recusandae facere molestias voluptate expedita
+              reiciendis ipsa corporis saepe quo.
+            </span>
+          </div>
+        </div>
       </form>
     </Dialog>
   )

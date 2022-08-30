@@ -90,14 +90,14 @@ const CustomInput = React.forwardRef(function CustomInput(props, ref) {
   )
 })
 
-export default React.forwardRef(function TextArea(props, ref) {
+export default React.forwardRef((props, ref) => {
   return (
     <CustomInput
       ref={ref}
       style={{ flex: '1' }}
-      aria-label='Demo input'
+      aria-label="Demo input"
       multiline
-      placeholder='Write Scheme'
+      placeholder="Write Scheme"
       {...props}
     />
   )
