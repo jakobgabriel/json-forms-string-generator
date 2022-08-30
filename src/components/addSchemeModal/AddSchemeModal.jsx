@@ -107,7 +107,6 @@ const AddSchemeModal = ({
     } else {
       let id = window.crypto.randomUUID()
       let dataOrder = returnElements(data.uischema)
-      console.log(dataOrder)
       window.localStorage.setItem(
         id,
         JSON.stringify({ id, dataOrder, ...data }).replaceAll('\n', '')

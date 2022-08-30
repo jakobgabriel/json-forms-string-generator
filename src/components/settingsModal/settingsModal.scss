@@ -1,8 +1,9 @@
 .settingsModal {
-  width: 32rem;
-  height: 20rem;
+  width: 76vw;
+  height: 76vh;
   padding: 1.5rem;
   position: relative;
+  overflow: hidden;
 
   &__close {
     position: absolute;
@@ -27,12 +28,23 @@
   &__body {
     display: flex;
     flex-direction: column;
+    height: calc(100% - 3.5rem);
     gap: 2rem;
   }
 
   &__version {
     display: flex;
     gap: 1rem;
+    position: relative;
+
+    &::after {
+      content: '';
+      border-bottom: 1px solid rgb(240, 240, 240);
+      height: 1px;
+      width: 100%;
+      position: absolute;
+      bottom: -1rem;
+    }
 
     &__title {
       color: #21d17f;
@@ -48,9 +60,16 @@
     gap: 1rem;
     text-align: justify;
     text-justify: inter-word;
+    height: calc(100% - 3.5rem);
 
     &__title {
       color: #21d17f;
+    }
+
+    &__content {
+      overflow-y: auto;
+      height: 100%;
+      padding-right: 1rem;
     }
   }
 }

@@ -8,8 +8,6 @@ export const isValidAjvScheme = (schema, ctx) => {
   try {
     return ajv.compile(schema)
   } catch (e) {
-    console.log(e)
-
     return ctx.createError({ message: e.message })
   }
 }
@@ -44,4 +42,19 @@ export const returnElements = (schema) => {
     return data.flat().filter((e) => e)
   }
   return [schema.scope.split('/').pop()]
+}
+
+export const flatten = (ob) => {
+  let result = {}
+  for (const i in ob) {
+    if (typeof ob[i] === 'object' && !Array.isArray(ob[i])) {
+      const temp = flatten(ob[i])
+      for (const j in temp) {
+        result[j] = temp[j]
+      }
+    } else {
+      result[i] = ob[i]
+    }
+  }
+  return result
 }

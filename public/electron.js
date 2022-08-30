@@ -38,19 +38,22 @@ function createWindow() {
   mainWindow.removeMenu()
 
   // Load index.html into the new BrowserWindow
-  mainWindow.loadURL(
-    isDev
-      ? 'http://localhost:3000'
-      : `file://${path.join(__dirname, '../build/index.html')}`
-  )
+  if (isDev) mainWindow.loadURL('http://localhost:3000')
+  else
+    mainWindow.loadURL(
+      url.format({
+        pathname: path.join(__dirname, '../build/index.html'),
+        protocol: 'file:',
+        slashes: true,
+      })
+    )
 
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
   })
 
-  // Open DevTools - Remove for PRODUCTION!
+  // Open DevTools
   if (isDev) mainWindow.webContents.openDevTools()
-  // Listen for window being closed
 }
 
 const gotTheLock = app.requestSingleInstanceLock()
@@ -72,7 +75,6 @@ if (!gotTheLock) {
   // Quit when all windows are closed - (Not macOS - Darwin)
   app.on('window-all-closed', () => {
     // if (process.platform !== 'darwin')
-    console.log('closing')
     app.quit()
   })
 

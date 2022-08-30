@@ -1,23 +1,10 @@
 import { useState, useEffect } from 'react'
+import './jsonForm.scss'
+
 import { JsonForms } from '@jsonforms/react'
 import { materialCells, materialRenderers } from '@jsonforms/material-renderers'
 
-import './jsonForm.scss'
-
-const flatten = (ob) => {
-  let result = {}
-  for (const i in ob) {
-    if (typeof ob[i] === 'object' && !Array.isArray(ob[i])) {
-      const temp = flatten(ob[i])
-      for (const j in temp) {
-        result[j] = temp[j]
-      }
-    } else {
-      result[i] = ob[i]
-    }
-  }
-  return result
-}
+import { flatten } from '../../functions'
 
 const JsonForm = ({ activeScheme }) => {
   const [data, setData] = useState({})
@@ -34,11 +21,9 @@ const JsonForm = ({ activeScheme }) => {
   const copyData = () => {
     let flattenedData = flatten(data)
 
-    console.log(flattenedData)
     let seperator = activeScheme.seperator ? activeScheme.seperator : ','
 
     let string = ''
-    console.log(activeScheme)
     activeScheme.dataOrder.map((dataPoint) => {
       if (flattenedData[dataPoint])
         if (string) string = string + seperator + flattenedData[dataPoint]

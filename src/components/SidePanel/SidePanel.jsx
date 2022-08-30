@@ -6,7 +6,6 @@ import { NavLink, useMatch } from 'react-router-dom'
 const SidePanel = ({ setIsAddModalOpen, setIsSettingsModalOpen }) => {
   const isSchemes = useMatch('/')
 
-  console.log(isSchemes)
   return (
     <div className="sidePanel">
       <NavLink to="/">
