@@ -1,6 +1,7 @@
 // Modules
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
+const url = require('url')
 const isDev = require('electron-is-dev')
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'

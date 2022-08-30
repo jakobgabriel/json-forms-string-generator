@@ -4,7 +4,7 @@
 
 Since most of the common used applications during the daily life are not able to create general and self defined user input fields, this small desktop application was build, to enable the ability of structured, more user friendly and self defined user data input. It should enhance the functions of other applications that are not able to provide self defined user input fields.
 
-![App Overview and Purpose](/assets/images/home_screen_another_schema_2.png)
+![App Overview and Purpose](./assets/images/home_screen_another_schema_2.png)
 
 ---
 
@@ -27,7 +27,7 @@ After a short installation time (around 1min) you are already finished and you c
 
 After the program is opened, the App Home Screen will be shown as following.
 
-![App Home](/assets/images/home_screen.png)
+![App Home](./assets/images/home_screen.png)
 
 The App currently contains three sections:
 
@@ -43,11 +43,11 @@ The App currently contains three sections:
 
 When a new JSON Schema needs to be created, the `Add` Button on the left side will open a dialoge where the `name`, the `JSON schema` and the `UI schema` can be defined. If help is necessary for the definition of the Schemas, you can visit the [jsonforms documentation](https://jsonforms.io/), by clicking the `information` button.
 
-![New JSON Schema and UI Schema](/assets/images/add_form_ui_schema.png)
+![New JSON Schema and UI Schema](./assets/images/add_form_ui_schema.png)
 
 After the `JSON schema` and the `UI schema` is defined, they can be saved with the `Add` Button.
 
-![New JSON Schema and UI Schema Defined](/assets/images/add_form_ui_schema_definition.png)
+![New JSON Schema and UI Schema Defined](./assets/images/add_form_ui_schema_definition.png)
 
 ---
 
@@ -61,7 +61,7 @@ After the `JSON schema` and the `UI schema` is defined, they can be saved with t
 
 The deletion of a `JSON Schema`, is possible by selecting the schema on the left side and clicking the `Delete` Button.
 
-![Delete existing JSON Schema and UI Schema](/assets/images/delete_existing_form_ui_schema.png)
+![Delete existing JSON Schema and UI Schema](./assets/images/delete_existing_form_ui_schema.png)
 
 ---
 
@@ -73,7 +73,7 @@ The deletion of a `JSON Schema`, is possible by selecting the schema on the left
 
 ### Adjust the String Separator (Global Definition)
 
-![Adjust Global String Separator](/assets/images/settings_separator.png)
+![Adjust Global String Separator](./assets/images/settings_separator.png)
 
 ---
 

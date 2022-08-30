@@ -27,7 +27,11 @@ const App = () => {
       delete data.active
     }
 
-    setSchemes(Object.values(data).map((schema) => JSON.parse(schema)))
+    try {
+      setSchemes(Object.values(data).map((schema) => JSON.parse(schema)))
+    } catch (e) {
+      localStorage.clear()
+    }
   }, [])
 
   return (
