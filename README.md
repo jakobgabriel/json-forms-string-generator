@@ -31,13 +31,15 @@ After the program is opened, the App Home Screen will be shown as following.
 
 ![App Home](https://github.com/jakobgabriel/json-forms-string-generator/blob/main/docs/images/home_screen.png)
 
-The App currently contains three sections: 
+The App currently contains multiple functional and non-functional sections: 
 
-1. The default section is the overview over the currently available JSON Schemas with a list view on the left side, where the schema can be selected
+1. The default section is the overview over the currently available JSON Schemas with a list view on the left side, where the schema can be selected, edited and deleted
 
-2. The second section is the Create New JSON Schema and UI Schema section, where you can add an additional schema 
+2. The second section is the Create New JSON Schema and UI Schema section, where you can add an additional schemas
 
-3. The third section is the App settings section where currently the global settings of the separator is added (will be changed in the future)
+3. The third section in the App is a section where the main functions are documented and available as an offline documentation  
+
+3. The fourth section is the App settings section where the version number of the App and the Licence is shown
 
 
 ----
@@ -67,7 +69,6 @@ After the `JSON schema` and the `UI schema` is defined, they can be saved with t
 
 The deletion of a `JSON Schema`, is possible by selecting the schema on the left side and clicking the `Delete` Button. 
 
-
 ![Delete existing JSON Schema and UI Schema](https://github.com/jakobgabriel/json-forms-string-generator/blob/main/docs/images/delete_existing_form_ui_schema.png)
 
 
@@ -75,23 +76,21 @@ The deletion of a `JSON Schema`, is possible by selecting the schema on the left
 
 ### Edit an Existing JSON Schema
 
-**to be described**
+Changing an existing `JSON Schema`, is possible by selecting the schema on the left side and clicking the `Edit` Button. 
 
-
-----
-
-### Adjust the String Separator (Global Definition)
-
-
-
-![Adjust Global String Separator](https://github.com/jakobgabriel/json-forms-string-generator/blob/main/docs/images/settings_separator.png)
+![Edit existing JSON Schema and UI Schema]()
 
 
 ----
 
 ### General App Settings 
 
-**to be developed**
+Within the App Settings section is currently only the App Version Number and the License description available. 
+
+![App Version Number and License]()
+
+
+**further settings need to be developed**
 
 
 ----
