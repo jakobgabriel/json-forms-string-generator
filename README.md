@@ -78,7 +78,7 @@ The deletion of a `JSON Schema`, is possible by selecting the schema on the left
 
 Changing an existing `JSON Schema`, is possible by selecting the schema on the left side and clicking the `Edit` Button. 
 
-![Edit existing JSON Schema and UI Schema]()
+![Edit existing JSON Schema and UI Schema](https://github.com/jakobgabriel/json-forms-string-generator/blob/main/docs/images/edit_existing_form_ui_schema_minimal_window.png)
 
 
 ----
@@ -87,7 +87,7 @@ Changing an existing `JSON Schema`, is possible by selecting the schema on the l
 
 Within the App Settings section is currently only the App Version Number and the License description available. 
 
-![App Version Number and License]()
+![App Version Number and License](https://github.com/jakobgabriel/json-forms-string-generator/blob/main/docs/images/version_information.png)
 
 
 **further settings need to be developed**
